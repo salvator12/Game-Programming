@@ -8,7 +8,7 @@ public class NPCSpawn : MonoBehaviour
     public Transform[] SpawnerPoints;
     /*public GameObject[] MejaMakan;*/
     [SerializeField]
-    InteractableMejaMakan [] _interactMejaMakan;
+    MejaMakan[] _interactMejaMakan;
     int randomSpawn;
     // Start is called before the first frame update
     void Start()

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3157458735210429419}
   - component: {fileID: 3157458735210429420}
   - component: {fileID: 3157458735210429418}
-  - component: {fileID: 1797040815}
-  - component: {fileID: -1572529000239236146}
+  - component: {fileID: 7686307158729147252}
+  - component: {fileID: 6107598470884948891}
   m_Layer: 0
   m_Name: Set Meja Makan
   m_TagString: Untagged
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!61 &1797040815
+--- !u!61 &7686307158729147252
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -288,7 +288,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.5, y: -3.4570496}
+  m_Offset: {x: -0.5, y: -3.3934972}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -299,9 +299,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5, y: 4.354362}
+  m_Size: {x: 5, y: 4.0650277}
   m_EdgeRadius: 0
---- !u!114 &-1572529000239236146
+--- !u!114 &6107598470884948891
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

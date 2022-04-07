@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractableMejaMakan : MonoBehaviour
+public class MejaMakan : MonoBehaviour
 {
     bool isRange = false;
     public ButtonUI _buttonUI;
@@ -12,20 +12,21 @@ public class InteractableMejaMakan : MonoBehaviour
     public bool serveFood;
     [HideInInspector]
     public bool isNPC;
-    /* private void Start()
-     {
-         _buttonUI = GetComponent<ButtonUI>()
+    [HideInInspector]
+    public bool isClicked_needMenu = false;
+    MejaMakanManager mejaMakanManager;
+    private void Start()
+    {
+        mejaMakanManager = MejaMakanManager.instance;
      }
- */
+
     private void Update()
     {
-        if(isRange)
+        /*if (this._buttonUI.isClicked_needMenu)
         {
-            /*if(_buttonUI.needMenu)
-            {
-                Debug.Log("give him menu");   
-            }*/
-        }
+            needMenu = false;
+            _buttonUI.hideButton(isRange, needMenu, serveFood);
+        }*/
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -37,8 +38,11 @@ public class InteractableMejaMakan : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && isNPC)
         {
             isRange = true;
-            needMenu = true;
-            _buttonUI.enableButton(this.gameObject, needMenu, serveFood);
+            if(!isClicked_needMenu)
+            {
+                needMenu = true;
+            }
+            mejaMakanManager.selectMejaMakan(this, needMenu, serveFood);
             Debug.Log("Player in Range");
         }
         
@@ -49,7 +53,7 @@ public class InteractableMejaMakan : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isRange = false;
-            _buttonUI.hideButton(needMenu, serveFood);
+            mejaMakanManager.deselectMejaMakan(isRange, needMenu, serveFood);
             Debug.Log("Player out of Range");
         }
     }
