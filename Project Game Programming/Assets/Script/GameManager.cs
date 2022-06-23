@@ -1,22 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using CookDash.Data;
+using CookDash.Managers;
 public class GameManager : MonoBehaviour
 {
-    [HideInInspector]
-    static public bool needMenu = true;
-    [HideInInspector]
-    static public bool serveFood;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static GameManager Instance;
+    private OrderManager orderManager;
+    public LevelData level1;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        Instance = this;
+    }
+    private void Start()
+    {
+        orderManager = OrderManager.Instance;
+        orderManager.Init(level1);
     }
 }

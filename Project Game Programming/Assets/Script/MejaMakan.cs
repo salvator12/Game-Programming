@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using CookDash.Managers;
+using CookDash.Model;
 public class MejaMakan : MonoBehaviour
 {
     bool isRange = false;
@@ -9,11 +10,15 @@ public class MejaMakan : MonoBehaviour
     [HideInInspector]
     public bool needMenu = false;
     [HideInInspector]
-    public bool serveFood;
+    public bool serveFood = false;
     [HideInInspector]
     public bool isNPC;
     [HideInInspector]
     public bool isClicked_needMenu = false;
+    public bool isClicked_giveFood = false;
+    public PatienceBar npc;
+    public Order order;
+    public bool orderExpired = false;
     MejaMakanManager mejaMakanManager;
     private void Start()
     {
@@ -22,17 +27,17 @@ public class MejaMakan : MonoBehaviour
 
     private void Update()
     {
-        /*if (this._buttonUI.isClicked_needMenu)
+        /*if(orderExpired)
         {
-            needMenu = false;
-            _buttonUI.hideButton(isRange, needMenu, serveFood);
+            order.expired(this.order);
         }*/
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(isNPC);
+        /*Debug.Log("NPC: " + isNPC);*/
         if (collision.gameObject.CompareTag("NPC"))
         {
+            /*Debug.Log("masuk");*/
             isNPC = true;
         }
         if (collision.gameObject.CompareTag("Player") && isNPC)
@@ -41,6 +46,9 @@ public class MejaMakan : MonoBehaviour
             if(!isClicked_needMenu)
             {
                 needMenu = true;
+            } else if(!isClicked_giveFood)
+            {
+                serveFood = true;
             }
             mejaMakanManager.selectMejaMakan(this, needMenu, serveFood);
             Debug.Log("Player in Range");

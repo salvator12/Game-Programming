@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using CookDash.Managers;
 public class ButtonUI : MonoBehaviour
 {
-    // Start is called before the first frame update
     public GameObject[] ui;
 
     private MejaMakan _mejaMakan;
     public Vector3 posOffset;
-    // Update is called once per frame
 
+    bool wait = false;
+    OrderManager orderManager;
 
+    private void Start()
+    {
+        orderManager = OrderManager.Instance;
+    }
     public void enableButton(MejaMakan mejaMakan, bool needMenu, bool serveFood)
     {
         _mejaMakan = mejaMakan;
@@ -19,8 +23,7 @@ public class ButtonUI : MonoBehaviour
         {
             ui[0].SetActive(true);
             
-        }
-        if(serveFood)
+        }else if(serveFood)
         {
             ui[1].SetActive(true);
         }
@@ -29,11 +32,12 @@ public class ButtonUI : MonoBehaviour
 
     public void hideButton(bool isRange, bool needMenu, bool serveFood)
     {
+        Debug.Log("isRange: " + isRange + ", serveFood: " + serveFood);
         if((!isRange) || (isRange && !needMenu))
         {
             ui[0].SetActive(false);
         }
-        if ((!isRange) || (isRange && !needMenu))
+        if ((!isRange) || (isRange && !serveFood))
         {
             ui[1].SetActive(false);
         }
@@ -43,38 +47,29 @@ public class ButtonUI : MonoBehaviour
     {
         _mejaMakan.isClicked_needMenu = true;
         _mejaMakan.needMenu = false;
-        hideButton(true, _mejaMakan.needMenu, false);
+        _mejaMakan.isClicked_giveFood = false;
+        hideButton(true, _mejaMakan.needMenu, _mejaMakan.isClicked_giveFood);
         StartCoroutine(giveMenu());
         /*enableButton(_mejaMakan, false, true);*/
     }
 
     private IEnumerator giveMenu()
     {
-        yield return new WaitForSeconds(5f);
-        int pick = Random.Range(0, 6);
-        if (pick == 0)
+        /*_mejaMakan.npc.patience += 10f;*/
+        /*Debug.Log("orderManager: " + orderManager);*/
+        string orderedFrom = _mejaMakan.name;
+        MejaMakan currMejaMakan = _mejaMakan;
+        if(!wait)
         {
-            Debug.Log("Pilih Menu 0");
-        }
-        else if (pick == 1)
+            wait = true;
+            yield return new WaitForSeconds(3f);
+            Debug.Log("masuk");
+            orderManager.TrySpawnOrder(orderedFrom, currMejaMakan);
+        } else
         {
-            Debug.Log("Pilih Menu 1");
-        }
-        else if (pick == 2)
-        {
-            Debug.Log("Pilih Menu 2");
-        }
-        else if (pick == 3)
-        {
-            Debug.Log("Pilih Menu 3");
-        }
-        else if (pick == 4)
-        {
-            Debug.Log("Pilih Menu 4");
-        }
-        else if (pick == 5)
-        {
-            Debug.Log("Pilih Menu 5");
+            yield return new WaitForSeconds(3f);
+            orderManager.TrySpawnOrder(orderedFrom, currMejaMakan);
+            wait = false;
         }
     }
 

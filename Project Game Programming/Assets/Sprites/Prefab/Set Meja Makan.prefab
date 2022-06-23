@@ -313,7 +313,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a8775f53b8fc149814e514a5a54d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonUI: {fileID: 0}
+  _buttonUI: {fileID: 770150648691363596, guid: c4f3ed36dcf5b094e9fbe403ccb51c19, type: 3}
   needMenu: 0
   serveFood: 0
   isNPC: 0
+  isClicked_needMenu: 0

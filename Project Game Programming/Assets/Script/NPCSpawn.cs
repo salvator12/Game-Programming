@@ -24,6 +24,9 @@ public class NPCSpawn : MonoBehaviour
         randomSpawn = Random.Range(0, 3);
         if(!_interactMejaMakan[randomSpawn].isNPC)
         {
+            PatienceBar temp = this.NPC.GetComponent<PatienceBar>();
+            _interactMejaMakan[randomSpawn].npc = temp;
+            _interactMejaMakan[randomSpawn].npc._mejaMakan = _interactMejaMakan[randomSpawn];
             Instantiate(NPC, SpawnerPoints[randomSpawn].position, transform.rotation);
         }
         
